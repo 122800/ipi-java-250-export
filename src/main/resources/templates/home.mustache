@@ -54,6 +54,13 @@
             <h2>Facture numéro {{id}} de {{client.nom}} {{client.prenom}} <a href="/factures/{{id}}/pdf">pdf</a></h2>
             {{>factures}}
         {{/factures}}
+
+        <h1>HELLO GUY</h1>
+        {{#facturesGuy}}
+
+            <h2>Facture numéro {{id}} de {{client.nom}} {{client.prenom}} <a href="/factures/{{id}}/pdf">pdf</a></h2>
+            {{>factures}}
+        {{/facturesGuy}}
         
     </body>
 </html>

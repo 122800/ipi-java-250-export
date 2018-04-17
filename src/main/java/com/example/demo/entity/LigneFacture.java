@@ -21,6 +21,13 @@ public class LigneFacture {
     @Column
     private Integer quantite;
 
+    public LigneFacture() {}
+    public LigneFacture(Article article, Facture facture, int quantite) {
+        setFacture(facture);
+        setArticle(article);
+        setQuantite(quantite);
+    }
+    
     public Long getId() {
         return id;
     }

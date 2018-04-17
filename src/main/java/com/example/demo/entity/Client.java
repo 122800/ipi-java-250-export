@@ -17,6 +17,12 @@ public class Client {
 
     @Column
     private String nom;
+    
+    public Client() {};
+    public Client(String nom, String prenom) {
+        setNom(nom);
+        setPrenom(prenom);
+    }
 
     public Long getId() {
         return id;

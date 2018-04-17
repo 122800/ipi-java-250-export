@@ -27,7 +27,7 @@ public class HomeController {
 
     @Autowired
     private InitData initData;
-
+    
     @PostConstruct
     public void initTestData() {
         initData.insertTestData();
@@ -37,11 +37,15 @@ public class HomeController {
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView("home");
 
-        List<ClientDTO> clients = clientService.findAllClients();
+        List<ClientDTO> clients = clientService.findAllClientsDTO();
         modelAndView.addObject("clients", clients);
 
-        List<FactureDTO> factures = factureService.findAllFactures();
+        List<FactureDTO> factures = factureService.findAllFacturesDTO();
         modelAndView.addObject("factures", factures);
+        
+        //List<FactureDTO> facturesGuy = factureService.findByClient(clientService.findAllClientsReal().get(0));
+        List<FactureDTO> facturesGuy = factureService.findByClientDTO(clientService.findAllClients().get(0));
+        modelAndView.addObject("facturesGuy", facturesGuy);
 
         return modelAndView;
     }

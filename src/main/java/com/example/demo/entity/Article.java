@@ -8,15 +8,16 @@ import javax.persistence.*;
 @Entity
 public class Article {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column
-    private String libelle;
-
-    @Column
-    private Double prix;
+    @Column private String libelle;
+    @Column private Double prix;
+    
+    public Article() {}
+    public Article(String libelle, double prix) {
+        setLibelle(libelle);
+        setPrix(prix);
+    }
 
     public Long getId() {
         return id;

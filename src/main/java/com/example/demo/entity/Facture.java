@@ -20,6 +20,11 @@ public class Facture {
     @OneToMany(mappedBy = "facture")
     private Set<LigneFacture> ligneFactures = new HashSet<>();
 
+    public Facture() {}
+    public Facture(Client client) {
+        setClient(client);
+    }
+    
     public Long getId() {
         return id;
     }

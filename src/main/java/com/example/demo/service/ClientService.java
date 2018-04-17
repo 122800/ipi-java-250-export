@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.ClientDTO;
+import com.example.demo.entity.Client;
 import com.example.demo.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,11 @@ public class ClientService {
     @Autowired
     private ClientMapper clientMapper;
 
-    public List<ClientDTO> findAllClients() {
-        return clientRepository.findAll().stream().map(c-> clientMapper.map(c)).collect(toList());
+    public List<Client> findAllClients() {
+        return clientRepository.findAll();
     }
+    public List<ClientDTO> findAllClientsDTO() {
+        return findAllClients().stream().map(c-> clientMapper.map(c)).collect(toList());
+    }
+    
 }

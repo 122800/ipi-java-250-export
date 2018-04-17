@@ -45,7 +45,7 @@ public class ExportController {
     public void clientsCSV(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"clients.csv\"");
-        List<ClientDTO> clients = clientService.findAllClients();
+        List<ClientDTO> clients = clientService.findAllClientsDTO();
         exportCSVService.export(response.getWriter(), clients);
     }
 
@@ -53,7 +53,7 @@ public class ExportController {
     public void clientsXLSX(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/vnd.ms-excel");
         response.setHeader("Content-Disposition", "attachment; filename=\"clients.xlsx\"");
-        List<ClientDTO> clients = clientService.findAllClients();
+        List<ClientDTO> clients = clientService.findAllClientsDTO();
         exportXLSXService.export(response.getOutputStream(), clients);
     }
 
@@ -69,7 +69,7 @@ public class ExportController {
     public void facturePDF(@PathVariable("id") Long factureId, HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=\"facture " + factureId + ".pdf\"");
-        FactureDTO facture = factureService.findById(factureId);
+        FactureDTO facture = factureService.findByIdDTO(factureId);
         exportPDFITextService.export(response.getOutputStream(), facture);
     }
 
