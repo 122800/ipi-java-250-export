@@ -26,7 +26,7 @@ public class ExportPDFITextServiceTest {
         factureDTO.setClient(clientDTO);
         factureDTO.getLigneFactures().add(ligneFactureDTO1);
 
-        ExportPDFITextService exportPDFITextService = new ExportPDFITextService();
+        ExportPDFTextService exportPDFITextService = new ExportPDFTextService();
         FileOutputStream fos = new FileOutputStream("./target/factureDTO-itext.pdf");
         exportPDFITextService.export(fos, factureDTO);
         fos.close();

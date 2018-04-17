@@ -11,19 +11,19 @@
                 padding: 5px;
             }
 
-            h1 ul {
+            ul {
                 display: inline;
                 margin: 0px;
                 padding: 0px;
                 list-style: none;
             }
 
-            h1 li {
+            li {
                 display: inline;
                 margin: 0px;
                 padding: 0px;
             }
-            h1 li+li::before {
+            li+li::before {
                 content: "-"
             }
 
@@ -31,16 +31,14 @@
     </head>
     
     <body>
-        <h1>
-            Clients
-            <ul>
-                <li><a href="/clients/csv">csv</a></li>
-                <li><a href="#">xlsx</a></li>
-                <li><a href="#">json</a></li>
-                <li><a href="#">xml</a></li>
-                <li><a href="#">pdf</a></li>
-            </ul>
-        </h1>
+        <h1>Clients</h1>
+        <ul>
+            <li><a href="/clients/csv">csv</a></li>
+            <li><a href="#">xlsx</a></li>
+            <li><a href="#">json</a></li>
+            <li><a href="#">xml</a></li>
+            <li><a href="#">pdf</a></li>
+        </ul>
 
         {{>clients}}
 
@@ -61,6 +59,6 @@
             <h2>Facture numéro {{id}} de {{client.nom}} {{client.prenom}} <a href="/factures/{{id}}/pdf">pdf</a></h2>
             {{>factures}}
         {{/facturesGuy}}
-        
+
     </body>
 </html>

@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 @Service
-public class ExportPDFITextService {
+public class ExportPDFTextService {
 
     public void export(OutputStream os, FactureDTO facture) throws IOException, DocumentException {
         Document document = new Document();
