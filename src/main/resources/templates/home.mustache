@@ -1,24 +1,59 @@
 <html>
-<head>
-<title></title>
-</head>
-<body>
+    <head>
+        <title></title>
+        <style type="text/css">
+            a[href="#"] {
+                color: #C00;
+            }
 
-    <hr/>
-    <h1>Clients <a href="/clients/csv">csv</a>-<a>xlsx</a>-<a>json</a>-<a>xml</a>-<a>pdf</a></h1>
-    <hr/>
+            h1 {
+                background-color: #AAF;
+                padding: 5px;
+            }
 
-    {{>clients}}
+            h1 ul {
+                display: inline;
+                margin: 0px;
+                padding: 0px;
+                list-style: none;
+            }
 
-    <hr/>
-    <h1>Factures</h1>
-    <hr/>
+            h1 li {
+                display: inline;
+                margin: 0px;
+                padding: 0px;
+            }
+            h1 li+li::before {
+                content: "-"
+            }
+
+        </style>
+    </head>
+    
+    <body>
+        <h1>
+            Clients
+            <ul>
+                <li><a href="/clients/csv">csv</a></li>
+                <li><a href="#">xlsx</a></li>
+                <li><a href="#">json</a></li>
+                <li><a href="#">xml</a></li>
+                <li><a href="#">pdf</a></li>
+            </ul>
+        </h1>
+
+        {{>clients}}
+
+        <hr/>
+        <h1>Factures</h1>
+        <hr/>
 
 
-    {{#factures}}
+        {{#factures}}
 
-        <h2>Facture numéro {{id}} de {{client.nom}} {{client.prenom}} <a href="/factures/{{id}}/pdf">pdf</a></h2>
-        {{>factures}}
-    {{/factures}}
-</body>
+            <h2>Facture numéro {{id}} de {{client.nom}} {{client.prenom}} <a href="/factures/{{id}}/pdf">pdf</a></h2>
+            {{>factures}}
+        {{/factures}}
+        
+    </body>
 </html>

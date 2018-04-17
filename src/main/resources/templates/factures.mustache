@@ -1,18 +1,18 @@
 <table border="1">
     <thead>
-    <tr>
-        <th>Désignation</th>
-        <th>Quantité</th>
-        <th>Prix unitaire</th>
-    </tr>
+        <tr>
+            <th>Désignation</th>
+            <th>Quantité</th>
+            <th>Prix unitaire</th>
+        </tr>
     </thead>
     <tbody>
-    {{#ligneFactures}}
+        {{#ligneFactures}}
         <tr>
             <td>{{designation}}</td>
             <td>{{quantite}}</td>
             <td>{{prixUnitaire}}</td>
         </tr>
-    {{/ligneFactures}}
+        {{/ligneFactures}}
     </tbody>
 </table>
