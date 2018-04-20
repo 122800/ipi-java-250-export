@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -87,15 +88,20 @@ public class ExportXLSXService {
 		cell.setCellFormula(formula);
 	};
 
+
 	private Consumer<XSSFRow> getSommeTotaleFunction = (bottomRow) -> {
 		int columnIndex = 3;
-		XSSFCell sommeCell = bottomRow.createCell(columnIndex);
-
-		XSSFSheet sheet = sommeCell.getSheet();
+		int bottomRowIndex = bottomRow.getRowNum();
+		
+		XSSFSheet sheet = bottomRow.getSheet();
 		String topCell = sheet.getRow(XSLXFileGenerator.HEADER_SIZE).getCell(columnIndex).getReference();
-		String justAboveCell = sheet.getRow(sommeCell.getRowIndex() - 1).getCell(columnIndex).getReference();
+		String justAboveCell = sheet.getRow(bottomRowIndex - 1).getCell(columnIndex).getReference();
 
-		String formula = String.format("SOMME(%s:%s)", topCell, justAboveCell);
+		//String formula = String.format("SOMME(%s:%s)", topCell, justAboveCell);
+		String formula = String.format("CONCATENER(\"Somme totale : \", SOMME(%s:%s), \"€\")", topCell, justAboveCell);
+
+		sheet.addMergedRegion(new CellRangeAddress(bottomRowIndex, bottomRowIndex, 0, columnIndex));
+		XSSFCell sommeCell = bottomRow.createCell(0);
 		sommeCell.setCellFormula(formula);
 		sommeCell.setCellType(CellType.FORMULA);// FIXME STILL CAUSES STRANGE FORMULA BUG
 	};

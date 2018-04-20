@@ -51,13 +51,17 @@ public class InitData {
 
         Article article1 = new Article("Carte mère ASROCK 2345", 79.90);
         Article article2 = new Article("Clé USB", 9.90);
+        Article article3 = new Article("Dangerous items", 57.01);
         em.persist(article1);
         em.persist(article2);
+        em.persist(article3);
 
         {
             Facture facture = new Facture(client1);
             em.persist(facture);
-            em.persist(new LigneFacture(article1, facture, 1));
+            em.persist(new LigneFacture(article1, facture, 3));
+            em.persist(new LigneFacture(article2, facture, 2));
+            em.persist(new LigneFacture(article3, facture, 7));
         }
         {
             Facture facture = new Facture(client1);
