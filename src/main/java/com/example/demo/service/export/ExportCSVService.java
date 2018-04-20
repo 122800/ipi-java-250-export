@@ -18,7 +18,6 @@ public class ExportCSVService {
 	private List<Function<ClientDTO, Object>> functions = new ArrayList<>();
 	
     public void export(Writer printWriter, List<ClientDTO> clients) throws IOException {
-<<<<<<< HEAD
     	
     	addColumn("Nom", ClientDTO::getNom);
     	addColumn("Prenom", ClientDTO::getPrenom);
