@@ -43,8 +43,7 @@ public class HomeController {
         List<FactureDTO> factures = factureService.findAllFactures();
         modelAndView.addObject("factures", factures);
         
-        //List<FactureDTO> facturesGuy = factureService.findByClient(clientService.findAllClientsReal().get(0));
-        List<FactureDTO> facturesGuy = factureService.findByClient(clientService.findAllClients().get(0).getId());
+        List<FactureDTO> facturesGuy = factureService.findByClientId(clients.get(0).getId());
         modelAndView.addObject("facturesGuy", facturesGuy);
 
         return modelAndView;
