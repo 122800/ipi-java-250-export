@@ -38,7 +38,7 @@ public class ExportXLSXService {
         os.close();
     }
 
-	public void exportUnClient(ServletOutputStream outputStream, ClientDTO client) {
+	public void exportfacturesDUnClient(ServletOutputStream outputStream, ClientDTO client) {
 		// TODO Auto-generated method stub
 		
 	}

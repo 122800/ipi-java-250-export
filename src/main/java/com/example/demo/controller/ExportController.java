@@ -45,7 +45,7 @@ public class ExportController {
     public void clientsCSV(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"clients.csv\"");
-        List<ClientDTO> clients = clientService.findAllClientsDTO();
+        List<ClientDTO> clients = clientService.findAllClients();
         exportCSVService.export(response.getWriter(), clients);
     }
 
@@ -53,7 +53,7 @@ public class ExportController {
     public void clientsXLSX(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //response.setContentType("application/vnd.ms-excel");
         response.setHeader("Content-Disposition", "attachment; filename=\"clients.xlsx\"");
-        List<ClientDTO> clients = clientService.findAllClientsDTO();
+        List<ClientDTO> clients = clientService.findAllClients();
         exportXLSXService.export(response.getOutputStream(), clients);
     }
 
@@ -61,8 +61,9 @@ public class ExportController {
     public void facturesDUnClient(@PathVariable("id") Long clientId, HttpServletRequest request, HttpServletResponse response) throws IOException {
         //response.setContentType("application/vnd.ms-excel");
         response.setHeader("Content-Disposition", "attachment; filename=\"factures client " + clientId + ".xlsx\"");
-        ClientDTO client = clientService.findByIdDTO(clientId);
-        exportXLSXService.exportUnClient(response.getOutputStream(), client);
+        ClientDTO client = clientService.findById(clientId);
+        List<FactureDTO> hello = factureService.findByClient(clientId);
+        exportXLSXService.exportfacturesDUnClient(response.getOutputStream(), client);
     }
 
 
@@ -70,7 +71,7 @@ public class ExportController {
     public void facturePDF(@PathVariable("id") Long factureId, HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {
         //response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=\"facture " + factureId + ".pdf\"");
-        FactureDTO facture = factureService.findByIdDTO(factureId);
+        FactureDTO facture = factureService.findById(factureId);
         exportPDFTextService.export(response.getOutputStream(), facture);
     }
 

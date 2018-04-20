@@ -21,26 +21,18 @@ public class FactureService {
     @Autowired
     private FactureMapper factureMapper;
     
-    public List<Facture> findByClient(Client client) {
-    	return factureRepository.findByClient(client);
-    }
-    public List<FactureDTO> findByClientDTO(Client client) {
-    	return findByClient(client).stream().map(factureMapper::map).collect(toList());
+    public List<FactureDTO> findByClient(Long id) {
+    	return factureRepository.findByClient(id).stream().map(factureMapper::map).collect(toList());
     }
 
-    public List<Facture> findAllFactures() {
-        return factureRepository.findAll();
+    public List<FactureDTO> findAllFactures() {
+        return factureRepository.findAll().stream().map(factureMapper::map).collect(toList());
     }
-    public List<FactureDTO> findAllFacturesDTO() {
-        return findAllFactures().stream().map(factureMapper::map).collect(toList());
-    }
-
-    public Facture findById(Long id) {
-        return factureRepository.findById(id).orElseThrow(() ->
-		        new IllegalArgumentException("Facture inconnue: " + id)
-			);
-    }
-    public FactureDTO findByIdDTO(Long id) {
-    	return factureMapper.map(findById(id));
+    
+    public FactureDTO findById(Long id) {
+    	return factureMapper.map(
+    		factureRepository.findById(id).orElseThrow(() ->
+    			new IllegalArgumentException("Facture inconnue: " + id)
+    	));
     }
 }
