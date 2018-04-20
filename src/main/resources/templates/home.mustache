@@ -24,7 +24,7 @@
                 padding: 0px;
             }
             li+li::before {
-                content: "-"
+                content: "-";
             }
 
         </style>
@@ -51,6 +51,7 @@
 
             <h2>Facture numéro {{id}} de {{client.nom}} {{client.prenom}} <a href="/factures/{{id}}/pdf">pdf</a></h2>
             {{>factures}}
+
         {{/factures}}
 
         <h1>HELLO GUY</h1>
@@ -58,6 +59,7 @@
 
             <h2>Facture numéro {{id}} de {{client.nom}} {{client.prenom}} <a href="/factures/{{id}}/pdf">pdf</a></h2>
             {{>factures}}
+            
         {{/facturesGuy}}
 
     </body>

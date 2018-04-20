@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FactureRepository extends JpaRepository<Facture, Long> {
 
-	public List<Facture> findAllByClient(Client client);
+	public List<Facture> findByClient(Client client);
 	
 }
