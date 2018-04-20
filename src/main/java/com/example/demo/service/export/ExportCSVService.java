@@ -5,50 +5,66 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.function.Function;
 
 @Service
 public class ExportCSVService {
 	
-	public final String SEPARATOR = ";"; 
-
+	public final String SEPARATOR = ";";
+	
+	private List<String> headers = new ArrayList<>();
+	private List<Function<ClientDTO, Object>> functions = new ArrayList<>();
+	
     public void export(Writer printWriter, List<ClientDTO> clients) throws IOException {
 <<<<<<< HEAD
     	
-    	Class<? extends ClientDTO> classType = clients.get(0).getClass();
-    	Method[] classMethods = classType.getDeclaredMethods();
+    	addColumn("Nom", ClientDTO::getNom);
+    	addColumn("Prenom", ClientDTO::getPrenom);
+    	addColumn("Nombre d'armes", ClientDTO::getNb_weapons);
+    	addColumn("Nom de l'arme favorite", ClientDTO::getFav_weapon);
     	
-    	HashMap<String, Method> getters = new HashMap<>(); 
-    	for(Method m : classMethods) {
-    		String name = m.getName();
-    		if(name.startsWith("get")) {
-    			getters.put(name.substring(3), m);
-    		}
-    	}
+    	// maybe get a list of the names of each of the victims?
+    	addColumn("Nom des victimes",
+    			(C) -> C.getVictims().stream().map(
+    					(V) -> V.getNom()
+    				).reduce("", (a, b) -> a + (a.length() > 0 ? ", " : "") + b)
+    			);
     	
-    	for(Entry<String, Method> set : getters.entrySet()) {
-    		printWriter.write(set.getKey() + SEPARATOR);// write headers
+    	writeCSVFile(printWriter, clients);
+    	
+    	printWriter.close();
+    }
+    
+    private void addColumn(String headerName, Function<ClientDTO, Object> function) {
+		headers.add(headerName);
+		functions.add(function);
+	}
+	private void writeCSVFile(Writer printWriter, List<ClientDTO> clients) throws IOException {
+		for(String header : headers) {
+    		printWriter.write(header + SEPARATOR);
     	}
     	
     	for (ClientDTO client : clients) {
     		
     		printWriter.write("\n");
     		
-    		for(Entry<String, Method> set : getters.entrySet()) {
-    			try {
-					String gottenVar = set.getValue().invoke(client, new Object[]{}).toString();
-					printWriter.write(gottenVar + ";");
-				} catch (Exception e) {
-					// blub
-				}
+    		for(Function<ClientDTO, Object> function : functions) {
+    				
+    			printWriter.write(
+    				escapeCSVChars(function.apply(client).toString())
+    				+ SEPARATOR
+    			);
         	}
          }
-    }
+	}
+
+	private String escapeCSVChars(String string) {
+		string.replace("\"", "\"\"");
+		if(string.contains(SEPARATOR)) {
+			string = "\"" + string + "\"";
+		}
+		return string;
+	}
 }

@@ -23,7 +23,7 @@ public class ExportPDFBirtService {
             IReportRunnable design = engine.openReportDesign("/Users/Kayne/Documents/workspace/My reports/Customers.rptdesign");
             IRunAndRenderTask task = engine.createRunAndRenderTask(design);
 
-            HashMap contextMap = new HashMap();
+            HashMap<String, Object> contextMap = new HashMap<>();
             contextMap.put("org.eclipse.birt.report.data.oda.xml.inputStream", new FileInputStream("./src/test/resources/data.xml"));
             contextMap.put("org.eclipse.birt.report.data.oda.xml.closeInputStream", new Boolean(true));
             task.setAppContext(contextMap);

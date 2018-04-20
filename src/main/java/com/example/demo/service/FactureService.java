@@ -22,7 +22,7 @@ public class FactureService {
     private FactureMapper factureMapper;
     
     public List<Facture> findByClient(Client client) {
-    	return factureRepository.findAllByClient(client);
+    	return factureRepository.findByClient(client);
     }
     public List<FactureDTO> findByClientDTO(Client client) {
     	return findByClient(client).stream().map(factureMapper::map).collect(toList());

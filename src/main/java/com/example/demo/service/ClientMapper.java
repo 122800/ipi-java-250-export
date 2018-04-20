@@ -14,6 +14,9 @@ public class ClientMapper {
         dto.setId(entity.getId());
         dto.setNom(entity.getNom());
         dto.setPrenom(entity.getPrenom());
+        dto.setNb_weapons(entity.getNb_weapons());
+        dto.setFav_weapon(entity.getFav_weapon());
+        dto.setVictims(entity.getVictims());
         return dto;
     }
 }
