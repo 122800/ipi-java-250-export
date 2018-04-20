@@ -43,25 +43,27 @@ public class ExportController {
 
     @GetMapping(value="/clients/csv", produces="text/csv")
     public void clientsCSV(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //response.setContentType("text/csv");
         response.setHeader("Content-Disposition", "attachment; filename=\"clients.csv\"");
-        List<ClientDTO> clients = clientService.findAllClientsDTO();
+        
+        List<ClientDTO> clients = clientService.findAllClients();
         exportCSVService.export(response.getWriter(), clients);
     }
 
     @GetMapping(value="/clients/xlsx", produces="application/vnd.ms-excel")
     public void clientsXLSX(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //response.setContentType("application/vnd.ms-excel");
         response.setHeader("Content-Disposition", "attachment; filename=\"clients.xlsx\"");
-        List<ClientDTO> clients = clientService.findAllClientsDTO();
+        
+        List<ClientDTO> clients = clientService.findAllClients();
         exportXLSXService.export(response.getOutputStream(), clients);
     }
 
     @GetMapping(value="/clients/{id}/factures/xlsx", produces="application/vnd.ms-excel")
     public void facturesDUnClient(@PathVariable("id") Long clientId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //response.setContentType("application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment; filename=\"factures client " + clientId + ".xlsx\"");
-        // TODO
+        response.setHeader("Content-Disposition", "attachment; filename=\"factures client " + clientId + " (" + clientService.findById(clientId).getNom() + ").xlsx\"");
+        
+        //ClientDTO client = clientService.findById(clientId);
+        List<FactureDTO> factures = factureService.findByClientId(clientId);
+        exportXLSXService.exportfacturesDUnClient(response.getOutputStream(), factures);
     }
 
 
@@ -69,7 +71,8 @@ public class ExportController {
     public void facturePDF(@PathVariable("id") Long factureId, HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {
         //response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=\"facture " + factureId + ".pdf\"");
-        FactureDTO facture = factureService.findByIdDTO(factureId);
+        
+        FactureDTO facture = factureService.findById(factureId);
         exportPDFTextService.export(response.getOutputStream(), facture);
     }
 
