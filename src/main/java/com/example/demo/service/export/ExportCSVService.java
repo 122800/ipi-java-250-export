@@ -20,6 +20,7 @@ public class ExportCSVService {
 	public final String SEPARATOR = ";"; 
 
     public void export(Writer printWriter, List<ClientDTO> clients) throws IOException {
+<<<<<<< HEAD
     	
     	Class<? extends ClientDTO> classType = clients.get(0).getClass();
     	Method[] classMethods = classType.getDeclaredMethods();
