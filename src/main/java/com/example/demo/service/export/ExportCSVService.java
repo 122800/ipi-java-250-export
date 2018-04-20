@@ -25,7 +25,7 @@ public class ExportCSVService {
     	addColumn("Nom de l'arme favorite", ClientDTO::getFav_weapon);
     	
     	// maybe get a list of the names of each of the victims?
-    	addColumn("Nom des victimes",
+    	addColumn("Noms des victimes",
     			(C) -> C.getVictims().stream().map(
     					(V) -> V.getNom()
     				).reduce("", (a, b) -> a + (a.length() > 0 ? ", " : "") + b)

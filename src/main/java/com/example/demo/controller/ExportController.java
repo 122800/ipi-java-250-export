@@ -61,7 +61,8 @@ public class ExportController {
     public void facturesDUnClient(@PathVariable("id") Long clientId, HttpServletRequest request, HttpServletResponse response) throws IOException {
         //response.setContentType("application/vnd.ms-excel");
         response.setHeader("Content-Disposition", "attachment; filename=\"factures client " + clientId + ".xlsx\"");
-        // TODO
+        ClientDTO client = clientService.findByIdDTO(clientId);
+        exportXLSXService.exportUnClient(response.getOutputStream(), client);
     }
 
 

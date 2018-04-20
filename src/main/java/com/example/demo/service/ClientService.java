@@ -19,12 +19,21 @@ public class ClientService {
     private ClientRepository clientRepository;
     @Autowired
     private ClientMapper clientMapper;
+    
+    public Client findById(Long id) {
+        return clientRepository.findById(id).orElseThrow(() ->
+		        new IllegalArgumentException("Client inconnu: " + id)
+			);
+    }
+    public ClientDTO findByIdDTO(Long id) {
+    	return clientMapper.map(findById(id));
+    }
 
     public List<Client> findAllClients() {
         return clientRepository.findAll();
     }
     public List<ClientDTO> findAllClientsDTO() {
-        return findAllClients().stream().map(c-> clientMapper.map(c)).collect(toList());
+        return findAllClients().stream().map(clientMapper::map).collect(toList());
     }
     
 }
