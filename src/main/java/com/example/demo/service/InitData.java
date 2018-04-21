@@ -20,8 +20,8 @@ public class InitData {
     private EntityManager em;
 
     public void insertTestData() {
-    	Client client1 = new Client("Petri;llo", "Alexandre");
-    	Client client2 = new Client("Dupont", "Jérome");
+    	Client client1 = new Client("Petrillo", "Alexandre");
+    	Client client2 = new Client("Du;pont", "Jérome");
     	
     	Client client3 = new Client("Guy", "Random");
     	Client client4 = new Client("Passerby", "Hapless");

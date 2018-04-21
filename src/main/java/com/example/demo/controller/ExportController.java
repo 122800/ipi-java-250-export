@@ -61,7 +61,6 @@ public class ExportController {
     public void facturesDUnClient(@PathVariable("id") Long clientId, HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setHeader("Content-Disposition", "attachment; filename=\"factures client " + clientId + " (" + clientService.findById(clientId).getNom() + ").xlsx\"");
         
-        //ClientDTO client = clientService.findById(clientId);
         List<FactureDTO> factures = factureService.findByClientId(clientId);
         exportXLSXService.exportfacturesDUnClient(response.getOutputStream(), factures);
     }
@@ -69,10 +68,9 @@ public class ExportController {
 
     @GetMapping(value="/factures/{id}/pdf", produces="application/pdf")
     public void facturePDF(@PathVariable("id") Long factureId, HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {
-        //response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=\"facture " + factureId + ".pdf\"");
+    	FactureDTO facture = factureService.findById(factureId);
+        response.setHeader("Content-Disposition", "attachment; filename=\"facture " + factureId + " (" + clientService.findById(facture.getClient().getId()).getNom() + ").pdf\"");
         
-        FactureDTO facture = factureService.findById(factureId);
         exportPDFTextService.export(response.getOutputStream(), facture);
     }
 
